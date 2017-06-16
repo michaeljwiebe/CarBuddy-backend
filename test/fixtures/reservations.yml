@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  reviewer_id: 1
+  car_id: 1
+  owner_id: 1
+  start_time: MyString
+  end_time: MyString
+
+two:
+  reviewer_id: 1
+  car_id: 1
+  owner_id: 1
+  start_time: MyString
+  end_time: MyString
