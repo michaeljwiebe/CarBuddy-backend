@@ -6,6 +6,12 @@ class ReviewsController < ApplicationController
   end
 
   def create
+      new_review = Review.new(new_review_params)
+      if new_review.save!
+          reviews = Review.all
+          reviews_json = reviews.as_json
+          render json: reviews_json
+      end
   end
 
   def show
@@ -15,5 +21,11 @@ class ReviewsController < ApplicationController
   end
 
   def destroy
+  end
+
+  private
+
+  def new_review_params
+      params.require(:data).permit(:car_id, :title, :description, :rating)
   end
 end
