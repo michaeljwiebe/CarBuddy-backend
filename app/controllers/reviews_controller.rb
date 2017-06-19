@@ -2,11 +2,14 @@ class ReviewsController < ApplicationController
   def index
       reviews = Review.all
       reviews_json = reviews.as_json
+      reviews_json.each_with_index do |review, index|
+          review[:reviewer] = User.find(reviews[index].reviewer_id)
+      end
       render json: reviews_json
   end
 
   def create
-      new_review = Review.new(new_review_params)
+      new_review = Review.new(new_review_params, reviewer_id: session[:user_id])
       if new_review.save!
           reviews = Review.all
           reviews_json = reviews.as_json
