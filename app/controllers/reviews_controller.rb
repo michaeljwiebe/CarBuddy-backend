@@ -13,6 +13,9 @@ class ReviewsController < ApplicationController
       if new_review.save!
           reviews = Review.all
           reviews_json = reviews.as_json
+          reviews_json.each_with_index do |review, index|
+              review[:reviewer] = User.find(reviews[index].reviewer_id)
+          end
           render json: reviews_json
       end
   end
@@ -21,6 +24,14 @@ class ReviewsController < ApplicationController
   end
 
   def update
+      edited_review = Review.find(params[:id])
+      edited_review.title = params[:title]
+      edited_review.description = params[:description]
+      edited_review.rating = params[:rating]
+      if edited_review.save!
+          edited_review_json = edited_review.as_json
+          render json: edited_review_json
+      end
   end
 
   def destroy
