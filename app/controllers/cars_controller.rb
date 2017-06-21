@@ -11,8 +11,7 @@ class CarsController < ApplicationController
   end
 
   def create
-      new_car = Car.new(car_params)
-      new_car[:owner_id] = 1
+      new_car = Car.new(new_car_params)
       if new_car.save!
         cars = Car.all
         cars_json = cars.as_json
@@ -27,11 +26,15 @@ class CarsController < ApplicationController
   end
 
   def destroy
+      Car.find(params[:id]).destroy
+      cars = Car.all
+      cars_json = cars.as_json
+      render json: cars_json
   end
 
   private
 
-  def car_params
+  def new_car_params
       params.require(:data).permit(:make_model, :year, :price, :owner_id, :lat, :lng, :mpg)
   end
 end
