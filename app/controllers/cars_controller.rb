@@ -2,11 +2,10 @@ class CarsController < ApplicationController
   def index
       cars = Car.all
       cars_json = cars.as_json
-    #   cars_json.each_with_index do |car, index|
-    #       car[:owner] = cars[index].owner
-    #       car[:renters] = cars[index]
-    #       car[:reviews] = cars[index].reviews
-    #   end
+      cars_json.each_with_index do |car, index|
+          car[:reviews] = cars[index].reviews
+          car[:reservations] = cars[index].reservations
+      end
       render json: cars_json
   end
 

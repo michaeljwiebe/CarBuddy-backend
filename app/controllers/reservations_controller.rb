@@ -10,6 +10,9 @@ class ReservationsController < ApplicationController
       if new_reservation.save!
           reservations = Reservation.all
           reservations_json = reservations.as_json
+        #   reservations_json.each_with_index do |reservation, index|
+        #       reservation[:car] = reservations[index].cars
+        #   end
           render json: reservations_json
       end
   end
@@ -21,11 +24,15 @@ class ReservationsController < ApplicationController
   end
 
   def destroy
+      Reservation.find(params[:id]).destroy
+      reservations = Reservation.all
+      reservations_json = reservations.as_json
+      render json: reservations_json
   end
 
   private
 
   def new_reservation_params
-      params.require(:data).permit(:car_id, :start_time, :start_AMPM, :end_time, :end_AMPM)
+      params.require(:data).permit(:car_id, :renter_id, :start_date, :end_date, :reservation_hours)
   end
 end

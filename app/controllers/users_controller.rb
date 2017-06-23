@@ -24,9 +24,30 @@ class UsersController < ApplicationController
   end
 
   def update
+      edited_user = User.find(params[:id])
+      edited_user.username = params[:username]
+      edited_user.password = params[:password]
+      edited_user.name = params[:name]
+      edited_user.address = params[:address]
+      edited_user.zip = params[:zip]
+      if edited_user.save!
+          edited_user_json = edited_user.as_json
+          render json: edited_user_json
+      end
+  end
+
+  def upload_image
+    user = User.find()
+    user.update_attribute(:image, params[:data])
+    p params
+    render json: user
   end
 
   def destroy
+      User.find(params[:id]).destroy
+      users = User.all
+      users_json = users.as_json
+      render json: users_json
   end
 
   private
