@@ -4,20 +4,24 @@ class UsersController < ApplicationController
     end
 
     def sign_in
-        user = User.where(username: sign_in_params[:username]).first
+      user = User.where(username: sign_in_params[:username]).first
 
-        if user != nil
-          if user.password === sign_in_params[:password]
-            render json: user
-          end
+      if user != nil
+        if user.password === sign_in_params[:password]
+          render json: user
         end
+      end
     end
 
   def create
-      new_user = User.new(new_user_params)
-      if new_user.save!
-          render json: new_user
-      end
+    new_user = User.new(new_user_params)
+    if new_user.save!
+        p new_user.avatar.url # returned "/avatars/original/missing.png" before I updated database
+        new_user[:avatar_url] = new_user.avatar.url
+        #i got the error Can't write unknown attribute 'avatar_url' so i added a new column avatar:image and avatar_url:string to database
+        #now i  get different error 'no implicit conversion of symbol into integer'
+        render json: new_user
+    end
   end
 
   def show
@@ -37,26 +41,26 @@ class UsersController < ApplicationController
   end
 
   def upload_image
-    user = User.find()
-    user.update_attribute(:image, params[:data])
+    user = User.last
+    user.update_attribute(:avatar, params[:data])
     p params
     render json: user
   end
 
   def destroy
-      User.find(params[:id]).destroy
-      users = User.all
-      users_json = users.as_json
-      render json: users_json
+    User.find(params[:id]).destroy
+    users = User.all
+    users_json = users.as_json
+    render json: users_json
   end
 
   private
 
   def new_user_params
-      params.require(:data).permit(:name, :address, :zip, :username, :password)
+    params.require(:data).permit(:name, :address, :zip, :username, :password)
   end
 
   def sign_in_params
-      params.require(:data).permit(:username, :password)
+    params.require(:data).permit(:username, :password)
   end
 end
