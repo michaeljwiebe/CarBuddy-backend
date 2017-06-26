@@ -5,6 +5,7 @@ Rails.application.routes.draw do
     resources :users
     post '/sign_in', to: 'users#sign_in'
     post '/users/image', to: 'users#upload_image'
+    post '/cars/image', to: 'cars#upload_image'
 
 
 
