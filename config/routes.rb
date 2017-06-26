@@ -4,7 +4,8 @@ Rails.application.routes.draw do
     resources :cars
     resources :users
     post '/sign_in', to: 'users#sign_in'
-    post '/users/image', to: 'users#upload_image'
+    post '/users/upload_image', to: 'users#upload_image'
+    post '/users/update_image/:id', to: 'users#update_image'
     post '/cars/image', to: 'cars#upload_image'
 
 

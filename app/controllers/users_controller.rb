@@ -37,6 +37,12 @@ class UsersController < ApplicationController
       end
   end
 
+  def update_image
+      user = User.find(params[:id])
+      user.update_attribute(:avatar, params[:data])
+      render json: user
+  end
+
   def upload_image
     user = User.last
     user.update_attribute(:avatar, params[:data])
