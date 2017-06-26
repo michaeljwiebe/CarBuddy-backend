@@ -16,10 +16,7 @@ class UsersController < ApplicationController
   def create
     new_user = User.new(new_user_params)
     if new_user.save!
-        p new_user.avatar.url # returned "/avatars/original/missing.png" before I updated database
-        new_user[:avatar_url] = new_user.avatar.url
-        #i got the error Can't write unknown attribute 'avatar_url' so i added a new column avatar:image and avatar_url:string to database
-        #now i  get different error 'no implicit conversion of symbol into integer'
+        p new_user.avatar.url
         render json: new_user
     end
   end
@@ -43,7 +40,6 @@ class UsersController < ApplicationController
   def upload_image
     user = User.last
     user.update_attribute(:avatar, params[:data])
-    p params
     render json: user
   end
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170624120337) do
+ActiveRecord::Schema.define(version: 20170626161005) do
 
   create_table "cars", force: :cascade do |t|
     t.integer "year"
@@ -26,6 +26,7 @@ ActiveRecord::Schema.define(version: 20170624120337) do
     t.string "avatar_content_type"
     t.integer "avatar_file_size"
     t.datetime "avatar_updated_at"
+    t.binary "avatar"
   end
 
   create_table "reservations", force: :cascade do |t|
@@ -48,7 +49,19 @@ ActiveRecord::Schema.define(version: 20170624120337) do
     t.string "title"
   end
 
-# Could not dump table "users" because of following StandardError
-#   Unknown type 'image' for column 'avatar'
+  create_table "users", force: :cascade do |t|
+    t.string "name"
+    t.string "address"
+    t.integer "zip"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "username"
+    t.string "password"
+    t.string "avatar_file_name"
+    t.string "avatar_content_type"
+    t.integer "avatar_file_size"
+    t.datetime "avatar_updated_at"
+    t.binary "avatar"
+  end
 
 end

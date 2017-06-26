@@ -24,6 +24,12 @@ class CarsController < ApplicationController
   def update
   end
 
+  def upload_image
+    car = Car.last
+    car.update_attribute(:avatar, params[:data])
+    render json: car
+  end
+
   def destroy
       Car.find(params[:id]).destroy
       cars = Car.all
