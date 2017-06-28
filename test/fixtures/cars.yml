@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  type: 
+  year: 1
+  owner_id: 1
+  lat: 9.99
+  lng: 9.99
+  price: 1
+  mpg: 1
+
+two:
+  type: 
+  year: 1
+  owner_id: 1
+  lat: 9.99
+  lng: 9.99
+  price: 1
+  mpg: 1
