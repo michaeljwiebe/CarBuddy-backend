@@ -1,7 +1,7 @@
 class CreateReservations < ActiveRecord::Migration[5.1]
   def change
     create_table :reservations do |t|
-      t.integer :reviewer_id
+      t.integer :renter_id
       t.integer :car_id
       t.integer :owner_id
       t.string :start_time
