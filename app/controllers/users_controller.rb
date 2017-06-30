@@ -42,13 +42,13 @@ class UsersController < ApplicationController
   def update_image
       user = User.find(params[:id])
       user.update_attribute(:avatar, params[:data])
-      render json: user.avatar.url
+      render json: {avatar_url: user.avatar.url}
   end
 
   def upload_image
     user = User.last
     user.update_attribute(:avatar, params[:data])
-    render json: user.avatar.url
+    render json: {avatar_url: user.avatar.url}
   end
 
   def destroy
