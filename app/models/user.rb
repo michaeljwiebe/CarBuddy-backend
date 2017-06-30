@@ -7,6 +7,7 @@ class User < ApplicationRecord
 
     has_attached_file :avatar,
     :storage => :s3,
+    :s3_host_name => 's3-us-east-2.amazonaws.com',
     :s3_credentials => Proc.new{|a| a.instance.s3_credentials }
 
     def s3_credentials
