@@ -8,7 +8,9 @@ class UsersController < ApplicationController
 
       if user != nil
         if user.password === sign_in_params[:password]
-          render json: user
+            user_json = user.as_json
+            user_json[:avatar_url] = user.avatar.url
+          render json: user_json
         end
       end
     end
@@ -40,13 +42,13 @@ class UsersController < ApplicationController
   def update_image
       user = User.find(params[:id])
       user.update_attribute(:avatar, params[:data])
-      render json: user
+      render json: user.avatar.url
   end
 
   def upload_image
     user = User.last
     user.update_attribute(:avatar, params[:data])
-    render json: user
+    render json: user.avatar.url
   end
 
   def destroy
