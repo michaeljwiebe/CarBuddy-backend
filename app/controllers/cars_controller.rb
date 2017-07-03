@@ -5,6 +5,7 @@ class CarsController < ApplicationController
       cars_json.each_with_index do |car, index|
           car[:reviews] = cars[index].reviews
           car[:reservations] = cars[index].reservations
+          car[:avatar_url] = cars[index].avatar.url
       end
       render json: cars_json
   end
@@ -27,7 +28,8 @@ class CarsController < ApplicationController
   def upload_image
     car = Car.last
     car.update_attribute(:avatar, params[:data])
-    render json: car
+    render json: {avatar_url: car.avatar.url}
+
   end
 
   def destroy
