@@ -19,16 +19,10 @@ class CarsController < ApplicationController
       end
   end
 
-  def show
-  end
-
-  def update
-  end
-
   def upload_image
     car = Car.last
     car.update_attribute(:avatar, params[:data])
-    render json: {avatar_url: car.avatar.url}
+    render json: {avatar_url: car.avatar.url} #this should be here like in users controller right?
 
   end
 
