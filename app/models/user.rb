@@ -16,4 +16,6 @@ class User < ApplicationRecord
       :s3_region => ENV["AWS_REGION"]}
     end
     validates_attachment_content_type :avatar, :content_type => /\Aimage\/.*\Z/
+    validates :username, uniqueness: true
+    validates_presence_of :username, :password
 end
