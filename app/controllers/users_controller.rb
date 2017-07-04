@@ -53,9 +53,6 @@ class UsersController < ApplicationController
 
   def destroy
     User.find(params[:id]).destroy
-    users = User.all
-    users_json = users.as_json
-    render json: users_json
   end
 
   private
