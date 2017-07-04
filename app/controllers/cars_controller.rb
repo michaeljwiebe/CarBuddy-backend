@@ -13,9 +13,14 @@ class CarsController < ApplicationController
   def create
       new_car = Car.new(new_car_params)
       if new_car.save!
-        cars = Car.all
-        cars_json = cars.as_json
-        render json: cars_json
+          cars = Car.all
+          cars_json = cars.as_json
+          cars_json.each_with_index do |car, index|
+              car[:reviews] = cars[index].reviews
+              car[:reservations] = cars[index].reservations
+              car[:avatar_url] = cars[index].avatar.url
+          end
+          render json: cars_json
       end
   end
 
