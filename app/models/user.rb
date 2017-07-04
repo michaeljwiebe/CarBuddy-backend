@@ -17,5 +17,5 @@ class User < ApplicationRecord
     end
     validates_attachment_content_type :avatar, :content_type => /\Aimage\/.*\Z/
     validates :username, uniqueness: true
-    validates_presence_of :username, :password
+    validates_presence_of :username, :password, :name
 end
