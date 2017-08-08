@@ -34,9 +34,11 @@ class CarsController < ApplicationController
       updated_car = Car.find(params[:id])
       updated_car.lat = params[:lat]
       updated_car.lng = params[:lng]
-      all_cars = Car.all
-      all_cars_json = all_cars.as_json
-      render json: all_cars_json
+      if updated_car.save! 
+          all_cars = Car.all
+          all_cars_json = all_cars.as_json
+          render json: all_cars_json
+      end
   end
 
   def destroy
