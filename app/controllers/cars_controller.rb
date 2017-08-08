@@ -31,10 +31,11 @@ class CarsController < ApplicationController
   end
 
   def update_car_coordinates
+      p params
       updated_car = Car.find(params[:id])
       updated_car.lat = params[:lat]
       updated_car.lng = params[:lng]
-      if updated_car.save! 
+      if updated_car.save!
           all_cars = Car.all
           all_cars_json = all_cars.as_json
           render json: all_cars_json
