@@ -34,8 +34,9 @@ class CarsController < ApplicationController
       updated_car = Car.find(params[:id])
       updated_car.lat = params[:lat]
       updated_car.lng = params[:lng]
-      updated_car_json = updated_car.as_json
-      render json: updated_car_json
+      all_cars = Car.all
+      all_cars_json = all_cars.as_json
+      render json: all_cars_json
   end
 
   def destroy
