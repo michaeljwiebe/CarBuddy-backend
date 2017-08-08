@@ -5,6 +5,7 @@ class CarsController < ApplicationController
       cars_json.each_with_index do |car, index|
           car[:reviews] = cars[index].reviews
           car[:reservations] = cars[index].reservations
+          car[:avatar_url] = cars[index].avatar.url
       end
       render json: cars_json
   end
@@ -12,28 +13,43 @@ class CarsController < ApplicationController
   def create
       new_car = Car.new(new_car_params)
       if new_car.save!
-        cars = Car.all
-        cars_json = cars.as_json
-        render json: cars_json
+          cars = Car.all
+          cars_json = cars.as_json
+          cars_json.each_with_index do |car, index|
+              car[:reviews] = cars[index].reviews
+              car[:reservations] = cars[index].reservations
+              car[:avatar_url] = cars[index].avatar.url
+          end
+          render json: cars_json
       end
-  end
-
-  def show
-  end
-
-  def update
   end
 
   def upload_image
     car = Car.last
     car.update_attribute(:avatar, params[:data])
-    render json: car
+    render json: {avatar_url: car.avatar.url}
+  end
+
+  def update_car_coordinates
+      updated_car = Car.find(params[:id])
+      updated_car.lat = params[:lat]
+      updated_car.lng = params[:lng]
+      if updated_car.save! 
+          all_cars = Car.all
+          all_cars_json = all_cars.as_json
+          render json: all_cars_json
+      end
   end
 
   def destroy
       Car.find(params[:id]).destroy
       cars = Car.all
       cars_json = cars.as_json
+      cars_json.each_with_index do |car, index|
+          car[:reviews] = cars[index].reviews
+          car[:reservations] = cars[index].reservations
+          car[:avatar_url] = cars[index].avatar.url
+      end
       render json: cars_json
   end
 
