@@ -28,18 +28,19 @@ class CarsController < ApplicationController
     car = Car.last
     car.update_attribute(:avatar, params[:data])
     render json: {avatar_url: car.avatar.url}
-  end
 
+  end
+# @kiana looks like i hadn't written this method yet :/ oops!
   def update_car_coordinates
-      p params
-      updated_car = Car.find(params[:id])
-      updated_car.lat = params[:lat]
-      updated_car.lng = params[:lng]
-      if updated_car.save!
-          all_cars = Car.all
-          all_cars_json = all_cars.as_json
-          render json: all_cars_json
-      end
+    cars = Car.all
+    car = cars.find(params[:id])
+    car.update_attribute(:lat, params[:lat])
+    car.update_attribute(:lng, params[:lng])
+    if car.save!
+      updated_cars = Car.all
+      updated_cars_json = updated_cars.as_json
+      render json: updated_cars_json
+    end
   end
 
   def destroy
