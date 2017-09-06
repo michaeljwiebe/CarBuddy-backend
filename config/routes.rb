@@ -7,6 +7,7 @@ Rails.application.routes.draw do
     post '/users/upload_image', to: 'users#upload_image'
     post '/users/update_image/:id', to: 'users#update_image'
     post '/cars/image', to: 'cars#upload_image'
+    # @kiana this is the new route
     post '/cars/update_car_coordinates/:id', to: 'cars#update_car_coordinates'
 
 

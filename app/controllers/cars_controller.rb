@@ -30,7 +30,7 @@ class CarsController < ApplicationController
     render json: {avatar_url: car.avatar.url}
 
   end
-# @kiana looks like i hadn't written this method yet :/ oops!
+# @kiana here's the method thats giving me trouble, I think its sending nil back for those coordinates which breaks the data for everything somehow
   def update_car_coordinates
     cars = Car.all
     car = cars.find(params[:id])
