@@ -28,18 +28,18 @@ class CarsController < ApplicationController
     car = Car.last
     car.update_attribute(:avatar, params[:data])
     render json: {avatar_url: car.avatar.url}
-
   end
-# @kiana here's the method thats giving me trouble, I think its sending nil back for those coordinates which breaks the data for everything somehow
+
   def update_car_coordinates
-    cars = Car.all
-    car = cars.find(params[:id])
-    car.update_attribute(:lat, params[:lat])
-    car.update_attribute(:lng, params[:lng])
-    if car.save!
-      updated_cars = Car.all
-      updated_cars_json = updated_cars.as_json
-      render json: updated_cars_json
+    # lat and lng here are nil, why? id seems to be working. heroku run rails c did not p params to my console
+    p params
+    updated_car = Car.find(params[:id])
+    updated_car.lat = params[:lat]
+    updated_car.lng = params[:lng]
+    if updated_car.save!
+        all_cars = Car.all
+        all_cars_json = all_cars.as_json
+        render json: all_cars_json
     end
   end
 
